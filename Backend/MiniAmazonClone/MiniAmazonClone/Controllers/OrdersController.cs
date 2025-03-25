@@ -96,13 +96,29 @@ namespace MiniAmazonClone.Controllers
 		          return Ok(new { order.OrderID, order.TotalAmount, order.Status });
 		      }
 
+		// Endpoint to get all orders for a specific user by their UserID
+		[HttpGet("user/{userId}")]
+		public IActionResult GetOrdersByUserId(int userId)
+		{
+			var orders = _context.Orders
+				.Where(o => o.UserID == userId)
+				.Include(o => o.OrderItems)
+				.ThenInclude(oi => oi.Product)
+				.ToList();
+
+			if (!orders.Any())
+			{
+				return NotFound($"No orders found for User ID {userId}.");
+			}
+
+			return Ok(orders);
+		}
 
 
-		
 
 
-		
-		
+
+
 	}
 
 }

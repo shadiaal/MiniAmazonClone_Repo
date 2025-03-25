@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniAmazonClone", "MiniAmazonClone\MiniAmazonClone.csproj", "{12556B67-C3AF-4B1F-9DC4-119BE59FAE1E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniAmazonClone", "MiniAmazonClone\MiniAmazonClone.csproj", "{12556B67-C3AF-4B1F-9DC4-119BE59FAE1E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniAmazonClone.Test", "MiniAmazonClone.Test\MiniAmazonClone.Test.csproj", "{F31E6DFD-B5ED-4AE4-AC40-F4D22150E280}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{12556B67-C3AF-4B1F-9DC4-119BE59FAE1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12556B67-C3AF-4B1F-9DC4-119BE59FAE1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12556B67-C3AF-4B1F-9DC4-119BE59FAE1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F31E6DFD-B5ED-4AE4-AC40-F4D22150E280}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F31E6DFD-B5ED-4AE4-AC40-F4D22150E280}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F31E6DFD-B5ED-4AE4-AC40-F4D22150E280}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F31E6DFD-B5ED-4AE4-AC40-F4D22150E280}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
