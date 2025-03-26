@@ -39,16 +39,16 @@ namespace MiniAmazonClone.Controllers
 
 
 		
-		[Authorize(Policy = "CanViewOrders")]
-		[HttpGet("orders/all")]
-		public ActionResult<List<Order>> GetAllOrders()
-		{
-			var orders = _context.Orders.Include(o => o.OrderItems).ThenInclude(oi => oi.Product).ToList();
-			return Ok(orders);
-		}
+	[Authorize(Policy = "CanViewOrders")]
+	[HttpGet("orders/all")]
+	public ActionResult<List<Order>> GetAllOrders()
+	{
+	  var orders = _context.Orders.Include(o => o.OrderItems).ThenInclude(oi => oi.Product).ToList();
+	   return Ok(orders);
+	}
 
 
-		[Authorize(Policy = "CanRefundOrders")]
+	[Authorize(Policy = "CanRefundOrders")]
         [HttpPost("refund/{orderId}")]
         public async Task<IActionResult> RefundOrder(int orderId)
         {
@@ -65,7 +65,6 @@ namespace MiniAmazonClone.Controllers
 
 
 
-
         [HttpGet("{id}")]
         public async Task<IActionResult> GetOrderById(int id)
         {
@@ -75,33 +74,31 @@ namespace MiniAmazonClone.Controllers
             return Ok(order);
         }
 
-		[Authorize]
-		[HttpPost("create")]
+	[Authorize]
+	[HttpPost("create")]
+	public async Task<IActionResult> CreateOrder([FromBody] CreateOrderDto orderDto)
+	{
+	 var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+		if (userId == null)
+		 {
+		     return Unauthorized("User not found");
+		 }
 
-		      public async Task<IActionResult> CreateOrder([FromBody] CreateOrderDto orderDto)
-		      {
-		          var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-		          if (userId == null)
-		          {
-		              return Unauthorized("User not found");
-		          }
+	var order = await _orderService.CreateOrderAsync(int.Parse(userId), orderDto);
 
-		          var order = await _orderService.CreateOrderAsync(int.Parse(userId), orderDto);
+		 if (order == null)
+		  {
+		    return BadRequest("Order creation failed. Some products may not be available.");
+		  }
 
-		          if (order == null)
-		          {
-		              return BadRequest("Order creation failed. Some products may not be available.");
-		          }
-
-		          return Ok(new { order.OrderID, order.TotalAmount, order.Status });
+		    return Ok(new { order.OrderID, order.TotalAmount, order.Status });
 		      }
 
-		// Endpoint to get all orders for a specific user by their UserID
-		[HttpGet("user/{userId}")]
-		public IActionResult GetOrdersByUserId(int userId)
-		{
-			var orders = _context.Orders
-				.Where(o => o.UserID == userId)
+	// Endpoint to get all orders for a specific user by their UserID
+	[HttpGet("user/{userId}")]
+	public IActionResult GetOrdersByUserId(int userId)
+	{
+	  var orders = _context.Orders.Where(o => o.UserID == userId)
 				.Include(o => o.OrderItems)
 				.ThenInclude(oi => oi.Product)
 				.ToList();
@@ -112,12 +109,7 @@ namespace MiniAmazonClone.Controllers
 			}
 
 			return Ok(orders);
-		}
-
-
-
-
-
+	}
 
 	}
 
